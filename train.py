@@ -22,6 +22,7 @@ def fit_model(X, y):
         ('ohe_and_scaling', column_transformer),
         ('regression', Ridge())
     ])
+    print(X[train_features].columns)
     model_ = pipeline.fit(X[train_features], y)
     return model_
     # return None

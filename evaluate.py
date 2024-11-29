@@ -16,6 +16,7 @@ def evaluate_model(model_, X, y):
 if __name__ == "__main__":
     X_test, y_test = load_test_data(common.DB_PATH)
     X_test = common.preprocess_data(X_test)
+    print(X_test.columns)
     model = common.load_model(common.MODEL_PATH)
     score_test = evaluate_model(model, X_test, y_test)
     print(f"Score on test data {score_test:.2f}")

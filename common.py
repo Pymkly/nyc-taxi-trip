@@ -3,6 +3,7 @@ import os
 import numpy as np
 import pandas as pd
 import sqlite3
+from api.model import TripRequest
 
 # project root
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -37,6 +38,20 @@ CAT_FEATURES = ['weekday', 'month']
 # SQLite requires the absolute path
 # DB_PATH = os.path.abspath(DB_PATH)
 DB_PATH = os.path.join(ROOT_DIR, os.path.normpath(DB_PATH))
+
+# def to_dataframe(trip: TripRequest):
+#     param = {
+#         "vendor_id": trip.vendor_id,
+#         "pickup_datetime": trip.pickup_datetime.to_datetime_str(),
+#         "dropoff_datetime": trip.dropoff_datetime.to_datetime_str(),
+#         "passenger_count": trip.passenger_count,
+#         "pickup_longitude": trip.pickup_longitude,
+#         "pickup_latitude": trip.pickup_latitude,
+#         "dropoff_longitude": trip.dropoff_longitude,
+#         "dropoff_latitude": trip.dropoff_latitude,
+#         "store_and_fwd_flag": trip.store_and_fwd_flag
+#     }
+#     return pd.DataFrame.from_dict(param)
 
 def load_data(_path, _table_name):
     print(f"Reading {_table_name} data from the database: {_path}")
