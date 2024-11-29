@@ -1,7 +1,6 @@
 from sklearn.compose import ColumnTransformer
 
 import common
-import pandas as pd
 from sklearn.preprocessing import OneHotEncoder
 from sklearn.preprocessing import StandardScaler
 from sklearn.linear_model import Ridge
