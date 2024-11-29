@@ -2,6 +2,7 @@ import pickle
 import os
 import numpy as np
 import pandas as pd
+import sqlite3
 
 # project root
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -36,6 +37,20 @@ CAT_FEATURES = ['weekday', 'month']
 # SQLite requires the absolute path
 # DB_PATH = os.path.abspath(DB_PATH)
 DB_PATH = os.path.join(ROOT_DIR, os.path.normpath(DB_PATH))
+
+def load_data(_path, _table_name):
+    print(f"Reading {_table_name} data from the database: {_path}")
+    con = sqlite3.connect(_path)
+    _sql = f'SELECT * FROM {_table_name}'
+    data_train = pd.read_sql(_sql, con)
+    con.close()
+    return extract_x_y(data_train)
+
+def extract_x_y(_data):
+    X = _data.drop(columns=[TARGET_NAME])
+    y = _data[TARGET_NAME]
+    y = transform_y(y)
+    return X, y
 
 def preprocess_data(X):
     print(f"Preprocessing data")

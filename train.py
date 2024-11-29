@@ -1,5 +1,3 @@
-import sqlite3
-
 from sklearn.compose import ColumnTransformer
 
 import common
@@ -9,17 +7,8 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.linear_model import Ridge
 from sklearn.pipeline import Pipeline
 
-def load_train_data(path):
-    print(f"Reading train data from the database: {path}")
-    con = sqlite3.connect(path)
-    _sql = f'SELECT * FROM {common.TRAIN_TABLE}'
-    data_train = pd.read_sql(_sql, con)
-    con.close()
-    X = data_train.drop(columns=[common.TARGET_NAME])
-    # X = common.preprocess_data(X)
-    y = data_train[common.TARGET_NAME]
-    y = common.transform_y(y)
-    return X, y
+def load_train_data(_path):
+    return common.load_data(_path, common.TRAIN_TABLE)
 
 
 def fit_model(X, y):
@@ -34,8 +23,6 @@ def fit_model(X, y):
         ('ohe_and_scaling', column_transformer),
         ('regression', Ridge())
     ])
-    print(X[train_features])
-    print(y)
     model_ = pipeline.fit(X[train_features], y)
     return model_
     # return None
